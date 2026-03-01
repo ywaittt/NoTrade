@@ -3,6 +3,8 @@
 **Project:** NoTrade  
 **Purpose:** define, with zero ambiguity, what “YES/NO” means for each market so NoTrade calculates probabilities and EV against the *correct* definition of reality (not assumptions).
 
+> **Constants + enums:** stable rule-type names and timezone defaults live in `NOTRADE_CONSTANTS.yaml` (section: `market_rules`).
+
 ---
 
 ## 0) Why Chapter 2 exists (and why it’s non-negotiable)
@@ -62,6 +64,8 @@ Markets may be defined in:
 **Romania time (Europe/Bucharest) is not a safe base** when the market is defined in ET.  
 ET–Romania can be **6 or 7 hours** depending on DST timing.  
 Rule: write the spec in the market’s timezone; convert later in code.
+
+**Implementation default:** treat “ET” as the IANA timezone `market_rules.CANON_TZ` (default `America/New_York`) so DST is handled correctly.
 
 ---
 
@@ -254,8 +258,8 @@ Binance, BTC/USDT, 1m candles, Close price (per rules).
 
 ## C) Time: window, timezone, expiry
 **Date specified in title:** `YYYY-MM-DD`  
-**Timezone (official):** `ET` (Eastern Time)  
-**Snapshot candle time:** `12:00 ET` on the title date.
+**Timezone (official):** `ET` (mapped to `market_rules.CANON_TZ`, default `America/New_York`)  
+**Snapshot candle time:** `market_rules.CANON_SNAPSHOT_TIME_LOCAL` (default `12:00`) on the title date.
 
 **Exact candle definition:**  
 The 1-minute candle with start `12:00:00 ET` and end `12:00:59.999... ET`.  
@@ -325,11 +329,11 @@ If the candle is missing from the source, enforce a policy:
 
 ## I) Implementation Notes
 - `rule_type = SNAPSHOT_CLOSE_ABOVE`
-- `source = BINANCE`
+- `source = market_rules.CANON_SOURCE` *(default: BINANCE_SPOT)*
 - `pair = BTCUSDT`
 - `interval = 1m`
-- `timezone = ET`
-- `snapshot_time = 12:00`
+- `timezone = market_rules.CANON_TZ`
+- `snapshot_time = market_rules.CANON_SNAPSHOT_TIME_LOCAL`
 
 ---
 

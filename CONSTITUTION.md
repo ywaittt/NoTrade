@@ -1,5 +1,8 @@
 # Chapter 1 - Constitution (NoTrade)
 
+> **Constants:** all numeric thresholds and stable enum names live in `NOTRADE_CONSTANTS.yaml`.
+> Use the constant names in logs and docs to avoid drift.
+
 > **Purpose:** This document defines what NoTrade is, what it is allowed to do, how success is measured, and when it must refuse to act (PASS).  
 > **Scope:** Polymarket-style prediction markets for crypto (e.g., BTC/ETH “Hit Price”, “UP/DOWN”, daily markets).  
 > **Core philosophy:** NoTrade is an *edge detector*, not a fortune teller.
@@ -75,8 +78,8 @@ NoTrade must provide copy-paste ready outputs to simplify tracking.
 - **Realized EV vs estimated EV:** compare outcomes to predicted edge (calibration)
 
 ### 3.2 Risk and health metrics (non-negotiable)
-- **Max weekly drawdown:** **-8%** of bankroll
-- **Max monthly drawdown:** **-15%** of bankroll
+- **Max weekly drawdown:** **`policy.MAX_WEEKLY_DRAWDOWN_PCT`** (default -8%)
+- **Max monthly drawdown:** **`policy.MAX_MONTHLY_DRAWDOWN_PCT`** (default -15%)
 - **Losing streak resilience:** sizing must not explode after a streak; discipline must remain stable
 
 ### 3.3 Calibration and honesty metrics (model integrity)
@@ -90,8 +93,8 @@ NoTrade should be judged not only by profit, but by:
 ## 4. Edge Threshold (Anti-Gamble Law)
 
 ### 4.1 Minimum edge requirement
-- **Net edge must be ≥ 3% (0.03).**
-- If **Edge_net < 0.03**, NoTrade must output **PASS**.
+- **Net edge must be ≥ `policy.EDGE_NET_THRESHOLD` (default 0.03).**
+- If **Edge_net < policy.EDGE_NET_THRESHOLD**, NoTrade must output **PASS**.
 
 **Reason:** below 3% the edge is fragile and can be erased by fees, spread, slippage, and timing.
 
@@ -107,7 +110,7 @@ NoTrade should be judged not only by profit, but by:
 NoTrade must output **PASS** if *any* of the following conditions hold:
 
 ### 5.1 Edge failure
-- **Edge_net < 0.03**
+- **Edge_net < policy.EDGE_NET_THRESHOLD**
 
 ### 5.2 Evidence failure (“believable facts” missing)
 - data is insufficient, contradictory, or too weak to support probability claims
@@ -117,7 +120,7 @@ NoTrade must output **PASS** if *any* of the following conditions hold:
 - the market expires too soon relative to the data resolution used
 
 **Timeframe rules (defaults):**
-- **< 15 minutes:** PASS by default
+- **< `policy.TIMEFRAME_PASS_UNDER_MIN` minutes:** PASS by default
 - **15–30 minutes:** only ENTER if liquidity is strong + execution costs are small + evidence is intraday-relevant
 - **> 30 minutes:** normal evaluation permitted
 
@@ -143,8 +146,8 @@ PASS if any of these are unclear:
 ## 6. Risk Constraints and Sizing Philosophy
 
 ### 6.1 Absolute caps
-- **Max per position:** **5–6%** of bankroll
-- **Default position sizing:** **2–3%**
+- **Max per position:** **`policy.MAX_POSITION_PCT`** (default 0.06)
+- **Default position sizing:** **`policy.DEFAULT_POSITION_PCT`** (default 0.03)
 - **Small edge (3–5%):** **1–2%**
 - **High conviction (8%+ net edge with strong evidence):** **4–5%**
 
@@ -154,8 +157,8 @@ PASS if any of these are unclear:
 Because BTC/ETH markets are highly correlated, multiple positions can become one giant directional bet.
 
 Default constraints:
-- **Max exposure on the same BTC direction (across markets):** **10%**
-- **Max total exposure across correlated crypto positions (BTC + ETH combined):** **15%**
+- **Max exposure on the same BTC direction (across markets):** **`policy.MAX_BTC_DIRECTION_EXPOSURE_PCT`** (default 0.10)
+- **Max total exposure across correlated crypto positions (BTC + ETH combined):** **`policy.MAX_TOTAL_CORRELATED_EXPOSURE_PCT`** (default 0.15)
 
 If exceeding any correlation limit:
 - NoTrade must recommend reducing size, hedging, or output **PASS**.
@@ -175,14 +178,14 @@ If the realistic execution price likely reduces net edge below 3%, NoTrade must 
 
 ### 7.1 Safety Mode trigger
 If bankroll drawdown reaches:
-- **-8% weekly**, or
+- **`policy.MAX_WEEKLY_DRAWDOWN_PCT` weekly** (default 0.08), or
 - operator signals reduced risk appetite,
 
 then NoTrade enters **Safety Mode**.
 
 ### 7.2 Safety Mode behavior
 In Safety Mode, NoTrade:
-- requires **higher net edge**, recommended **≥ 6%**
+- requires **higher net edge**, recommended **≥ `policy.SAFETY_MODE_EDGE_THRESHOLD`** (default 0.06)
 - uses reduced sizing (e.g., 1–2% only)
 - prefers PASS unless conditions are exceptionally clean
 
@@ -284,18 +287,20 @@ If PASS, NoTrade must state the dominant reason(s), e.g.:
 - “PASS: timeframe too short for reliable edge”
 - “PASS: market definition ambiguous”
 
+**PASS codes (stable IDs):** whenever possible, include a `pass_code` from `PASS_CODES.md`.
+
 ---
 
 ## 12. Operating Assumptions (Defaults)
 
 Unless overridden later:
-- **Net edge threshold:** 3%
-- **Max weekly drawdown:** -8%
-- **Max monthly drawdown:** -15%
-- **Max per position:** 5–6%
-- **Timeframe < 15 minutes:** PASS by default
-- **Max BTC-direction exposure:** 10%
-- **Max correlated crypto exposure:** 15%
+- **Net edge threshold:** `policy.EDGE_NET_THRESHOLD`
+- **Max weekly drawdown:** `policy.MAX_WEEKLY_DRAWDOWN_PCT`
+- **Max monthly drawdown:** `policy.MAX_MONTHLY_DRAWDOWN_PCT`
+- **Max per position:** `policy.MAX_POSITION_PCT`
+- **Timeframe < ...:** `policy.TIMEFRAME_PASS_UNDER_MIN`
+- **Max BTC-direction exposure:** `policy.MAX_BTC_DIRECTION_EXPOSURE_PCT`
+- **Max correlated crypto exposure:** `policy.MAX_TOTAL_CORRELATED_EXPOSURE_PCT`
 
 ---
 
