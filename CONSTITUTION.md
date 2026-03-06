@@ -287,7 +287,7 @@ If PASS, NoTrade must state the dominant reason(s), e.g.:
 - “PASS: timeframe too short for reliable edge”
 - “PASS: market definition ambiguous”
 
-**PASS codes (stable IDs):** whenever possible, include a `pass_code` from `PASS_CODES.md`.
+**PASS codes (stable IDs):** whenever possible, include a `pass_code` from  `DATA_LAYER/PASS_CODES.md`
 
 ---
 

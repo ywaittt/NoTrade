@@ -70,7 +70,8 @@ Recommended fields:
 ---
 
 ## 6) DECISION schema (v1.0)
-
+**PASS codes rule:** `policy.pass_code` MUST be one stable ID from `DATA_LAYER/PASS_CODES.md`.
+If multiple reasons exist, pick the dominant one and write the rest in `action.reasoning`.
 ### 6.1 DECISION JSON shape
 ```json
 {

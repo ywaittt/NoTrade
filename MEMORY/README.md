@@ -7,9 +7,10 @@ The goal is **weekly review + manual improvement**, not automatic self-training.
 - A **ledger schema** that logs every decision (PASS included)
 - A **weekly cycle** (freeze + summary + report reset)
 - A **post-mortem system** (fixed tags + freeform tags + AI draft)
-- Lightweight PASS codes (optional, not strict)
+- PASS codes mapping (SSOT is DATA_LAYER/PASS_CODES.md)
 
 ## Single Source of Truth
+PASS codes SSOT: DATA_LAYER/PASS_CODES.md
 All thresholds and guardrails referenced here must match `NOTRADE_CONSTANTS.yaml`:
 - `policy.EDGE_NET_THRESHOLD`
 - `policy.MAX_POSITION_PCT`

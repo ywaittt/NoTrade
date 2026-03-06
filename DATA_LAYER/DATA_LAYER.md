@@ -79,7 +79,7 @@ For daily "hit price" style markets that resolve using:
 **Conflict rule:**  
 - If *primary* is available, it wins.  
 - If primary missing, use fallback #1 and mark `data_quality = DEGRADED`.  
-- If primary and fallback disagree beyond tolerance, mark `data_quality = CONFLICT` → **PASS**.
+- If primary and fallback disagree beyond tolerance, mark `data_quality = CONFLICT` → **PASS**(DATA_CONFLICT_DETECTED).
 
 #### Order Book / Microstructure
 1) Binance WebSocket L2 (primary)
@@ -224,7 +224,7 @@ If `slippage_estimate` cannot be computed reliably → `edge_net = UNKNOWN` → 
    - BTC: > **3%**
    - ETH: > **5%**
    - Polymarket implied prob jump: > **10%**
-   then cross-check reference venue. If mismatch persists → `CONFLICT` → **PASS**.
+   then cross-check reference venue. If mismatch persists → `CONFLICT` → **PASS**(DATA_CONFLICT_DETECTED).
 
 ### 5.5 Order Book Validity
 10. **Stale book:** if `now_ts - ts > 10s` for execution context → mark STALE; microstructure features disabled.
@@ -237,7 +237,7 @@ If `slippage_estimate` cannot be computed reliably → `edge_net = UNKNOWN` → 
 
 ### 5.7 Conflict & Outlier Policy (Dynamic)
 Daily hit markets are validated using dynamic checks:
-- If Polymarket implied probability jumps > 12% within 1–3 minutes without a comparable spot move → CONFLICT → PASS
+- If Polymarket implied probability jumps > 12% within 1–3 minutes without a comparable spot move → CONFLICT → PASS (DATA_CONFLICT_DETECTED)
 - If spot moves sharply but Polymarket stays stale (or vice versa) → DEGRADED; require stricter liquidity + higher edge or PASS
 
 NoTrade never "guesses" under conflict. PASS is the default safe action.
@@ -341,7 +341,7 @@ Key: `decision_id`
 4) **Polymarket spread explodes**
    - Action: DAC-2 fails → **PASS**
 5) **Primary vs fallback price conflict**
-   - Action: mark CONFLICT → **PASS**
+   - Action: mark CONFLICT → **PASS**(DATA_CONFLICT_DETECTED)
 
 ---
 

@@ -1,18 +1,22 @@
-# NoTrade — PASS Codes (Data Layer)
+# NoTrade — PASS Codes (Data Layer convenience)
 
-This file is kept for convenience.
+This file is kept for convenience only.
 
-**Source of truth:** see `PASS_CODES.md`.
+**Single Source of Truth:** `DATA_LAYER/PASS_CODES.md`
 
-Data Layer commonly emits:
+Data Layer commonly emits (DAC gates):
 - INVALID_MARKET_METADATA
 - UNSUPPORTED_MARKET_TYPE
+- MARKET_DEFINITION_AMBIGUOUS
 - STALE_POLYMARKET_CONTEXT
 - MISSING_REFERENCE_PRICE
-- DATA_INTEGRITY_FAIL
 - MISSING_CANONICAL_CANDLE
+- DATA_GAP_TOO_LARGE
+- DATA_CONFLICT_DETECTED
+- DATA_INTEGRITY_FAIL
 - INSUFFICIENT_LIQUIDITY
 - SLIPPAGE_UNKNOWN
 - EDGE_TOO_SMALL
+- TIMEFRAME_TOO_SHORT
 - RATE_LIMITED
 - SOURCE_UNAVAILABLE

@@ -1,25 +1,44 @@
-# PASS Codes (lightweight, optional)
+# PASS Codes (Memory) — Friendly Mapping (NO NEW IDs)
 
-PASS codes are helpful but not mandatory. Use them when they add clarity.
+This file is **not** a source of truth.
 
-## Core PASS codes
+✅ **Ledger field `policy.pass_code` MUST use stable IDs from:**
+- `DATA_LAYER/PASS_CODES.md`
+
+This file only maps legacy/friendly labels (used in prose) to stable IDs.
+
+---
+
+## Friendly → Stable mapping
+
 - `PASS_NO_EDGE`
-  - Meaning: `edge_net < policy.EDGE_NET_THRESHOLD`
-- `PASS_RISK_TOO_HIGH`
-  - Meaning: `edge_net >= threshold` but risk/reward is unacceptable (risk > edge)
-- `PASS_INTEGRITY_FAIL`
-  - Meaning: data integrity gates failed (staleness/latency/out-of-window)
-- `PASS_TOO_CLOSE_TO_RESOLUTION`
-  - Meaning: not enough time left until close; low confidence window
-- `PASS_ALREADY_MAX_EXPOSURE`
-  - Meaning: exposure cap hit (e.g. `policy.MAX_POSITION_PCT` or correlated exposure caps)
+  - Use: `EDGE_TOO_SMALL`
 
-## “Invalid window” behaviour
-If integrity fails:
-1) retry shortly
-2) if still unstable, mark invalid for 5–10 minutes
-3) log the PASS with `PASS_INTEGRITY_FAIL` (or leave pass_code null and write it in reasoning)
+- `PASS_RISK_TOO_HIGH`
+  - Use: `RISK_REWARD_UNFAVORABLE`
+
+- `PASS_TOO_CLOSE_TO_RESOLUTION`
+  - Use: `TIMEFRAME_TOO_SHORT`
+
+- `PASS_ALREADY_MAX_EXPOSURE`
+  - Use: `EXPOSURE_LIMIT_REACHED`
+  - If correlation-related: `CORRELATED_EXPOSURE_LIMIT_REACHED`
+
+- `PASS_INTEGRITY_FAIL`
+  - Use the **most specific** one:
+    - Polymarket staleness: `STALE_POLYMARKET_CONTEXT`
+    - missing/stale reference: `MISSING_REFERENCE_PRICE`
+    - missing canonical candle: `MISSING_CANONICAL_CANDLE`
+    - candle gaps too large: `DATA_GAP_TOO_LARGE`
+    - conflict/anomaly: `DATA_CONFLICT_DETECTED`
+    - generic integrity failure: `DATA_INTEGRITY_FAIL`
+    - rate limit: `RATE_LIMITED`
+    - source down: `SOURCE_UNAVAILABLE`
+    - liquidity: `INSUFFICIENT_LIQUIDITY`
+    - slippage unknown: `SLIPPAGE_UNKNOWN`
+
+---
 
 ## Counterfactuals (recommended)
-When PASS, add a one-liner:
-- “I would ENTER if market_prob_yes <= X OR if integrity_ok becomes true.”
+When PASS, add a one-liner in ledger:
+- `probs.counterfactual`: “I would ENTER if market_prob_yes <= X OR if integrity_ok becomes true.”

@@ -1,7 +1,7 @@
 ## Project Chapters (Architecture)
 
 **Single source of truth for constants:** `NOTRADE_CONSTANTS.yaml`  
-**Stable PASS codes:** `PASS_CODES.md`
+**Stable PASS codes:** DATA_LAYER/PASS_CODES.md
 
 Each chapter will be developed in a separate conversation and ends with a clear deliverable.
 
