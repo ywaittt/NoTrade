@@ -339,7 +339,7 @@ Key: `decision_id`
 3) **Bid/Ask flip**
    - Action: discard snapshot, mark provider unstable; likely **PASS**
 4) **Polymarket spread explodes**
-   - Action: DAC-2 fails → **PASS**
+   - Action: DAC-4 fails → **PASS**
 5) **Primary vs fallback price conflict**
    - Action: mark CONFLICT → **PASS**(DATA_CONFLICT_DETECTED)
 
@@ -348,6 +348,7 @@ Key: `decision_id`
 ## 11. Standard PASS Output (JSON)
 Example:
 
+```json
 {
   "decision": "PASS",
   "reason": "DATA_AVAILABILITY_VIOLATION",
@@ -356,3 +357,4 @@ Example:
   "action": "HALT_EXECUTION_FOR_SYMBOL",
   "data_quality": "DEGRADED"
 }
+```

@@ -12,3 +12,6 @@ MAX_SPREAD_PCT: 0.02
 
 PROB_JUMP_ALERT: 0.12
 PROB_JUMP_WINDOW_S: 180
+
+# Probability model cadence (legacy convenience mirror; prefer NOTRADE_CONSTANTS.yaml)
+PREDICTION_CADENCE_MIN: 30

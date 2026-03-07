@@ -31,7 +31,7 @@ NoTrade is **not** a magical tool that predicts the market with perfect accuracy
 
 You execute trades manually. NoTrade provides the decision, reasoning, and thresholds.
 
-**Constants + stable IDs:** see `NOTRADE_CONSTANTS.yaml` and `PASS_CODES.md`.
+**Constants + stable IDs:** see `DATA_LAYER/NOTRADE_CONSTANTS.yaml` and `DATA_LAYER/PASS_CODES.md`.
 
 ---
 

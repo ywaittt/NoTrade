@@ -1,6 +1,6 @@
 # Chapter 1 - Constitution (NoTrade)
 
-> **Constants:** all numeric thresholds and stable enum names live in `NOTRADE_CONSTANTS.yaml`.
+> **Constants:** all numeric thresholds and stable enum names live in `DATA_LAYER/NOTRADE_CONSTANTS.yaml`.
 > Use the constant names in logs and docs to avoid drift.
 
 > **Purpose:** This document defines what NoTrade is, what it is allowed to do, how success is measured, and when it must refuse to act (PASS).  
@@ -287,7 +287,7 @@ If PASS, NoTrade must state the dominant reason(s), e.g.:
 - “PASS: timeframe too short for reliable edge”
 - “PASS: market definition ambiguous”
 
-**PASS codes (stable IDs):** whenever possible, include a `pass_code` from  `DATA_LAYER/PASS_CODES.md`
+**PASS codes (stable IDs):** whenever possible, include a `pass_code` from `DATA_LAYER/PASS_CODES.md`
 
 ---
 

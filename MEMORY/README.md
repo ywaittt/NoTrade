@@ -7,11 +7,11 @@ The goal is **weekly review + manual improvement**, not automatic self-training.
 - A **ledger schema** that logs every decision (PASS included)
 - A **weekly cycle** (freeze + summary + report reset)
 - A **post-mortem system** (fixed tags + freeform tags + AI draft)
-- PASS codes mapping (SSOT is DATA_LAYER/PASS_CODES.md)
+- PASS codes mapping (SSOT is `DATA_LAYER/PASS_CODES.md`)
 
 ## Single Source of Truth
-PASS codes SSOT: DATA_LAYER/PASS_CODES.md
-All thresholds and guardrails referenced here must match `NOTRADE_CONSTANTS.yaml`:
+PASS codes SSOT: `DATA_LAYER/PASS_CODES.md`
+All thresholds and guardrails referenced here must match `DATA_LAYER/NOTRADE_CONSTANTS.yaml`:
 - `policy.EDGE_NET_THRESHOLD`
 - `policy.MAX_POSITION_PCT`
 - `policy.MAX_WEEKLY_DRAWDOWN_PCT`
@@ -19,6 +19,7 @@ All thresholds and guardrails referenced here must match `NOTRADE_CONSTANTS.yaml
 - `data_layer.REF_MAX_STALENESS_S`
 - `data_layer.DECISION_INTEGRITY_WINDOW_MIN`
 - `data_layer.PROB_JUMP_ALERT` + `data_layer.PROB_JUMP_WINDOW_S`
+- `probability_model.PREDICTION_CADENCE_MIN`
 
 ## Storage layout
 - `ledger/`
@@ -31,7 +32,7 @@ All thresholds and guardrails referenced here must match `NOTRADE_CONSTANTS.yaml
 ## Quick start (MVP)
 1) Create `ledger/trade_ledger.jsonl` (empty file).
 2) Use `TRADE_LEDGER_SCHEMA.md` to log:
-   - scheduled decisions (every 8 hours)
+   - periodic decision-time evaluations (default: every 30 minutes via `probability_model.PREDICTION_CADENCE_MIN`)
    - event-driven reconsiderations
 3) After 19:00 local each day:
    - fill outcomes if resolved

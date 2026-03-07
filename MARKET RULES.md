@@ -3,7 +3,7 @@
 **Project:** NoTrade  
 **Purpose:** define, with zero ambiguity, what “YES/NO” means for each market so NoTrade calculates probabilities and EV against the *correct* definition of reality (not assumptions).
 
-> **Constants + enums:** stable rule-type names and timezone defaults live in `NOTRADE_CONSTANTS.yaml` (section: `market_rules`).
+> **Constants + enums:** stable rule-type names and timezone defaults live in `DATA_LAYER/NOTRADE_CONSTANTS.yaml` (section: `market_rules`).
 
 ---
 

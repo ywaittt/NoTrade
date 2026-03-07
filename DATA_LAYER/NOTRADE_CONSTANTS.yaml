@@ -63,3 +63,21 @@ data_layer:
 
   # Decision window guards
   DECISION_INTEGRITY_WINDOW_MIN: 10
+
+probability_model:
+  # Canonical re-evaluation cadence for repeated decision-time forecasting.
+  PREDICTION_CADENCE_MIN: 30
+
+  # Calibration / trust status enums used by Chapter 6 and downstream policy logic.
+  CALIBRATION_STATUS:
+    - FRESH
+    - AGING
+    - STALE
+    - INVALID
+
+  # Uncertainty severity enums emitted by the probability layer.
+  UNCERTAINTY_LEVELS:
+    - LOW
+    - MEDIUM
+    - HIGH
+    - CRITICAL
