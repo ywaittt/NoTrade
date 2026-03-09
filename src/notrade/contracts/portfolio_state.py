@@ -1,4 +1,5 @@
 from __future__ import annotations
+from decimal import Decimal
 
 """Portfolio-level state consumed by policy logic."""
 
@@ -29,10 +30,10 @@ class PortfolioState(NoTradeModel):
     bankroll_usd: PositiveDecimal
     cash_usd: NonNegativeDecimal
     total_invested_usd: NonNegativeDecimal
-    weekly_drawdown_pct: Probability = Field(default=0)
-    monthly_drawdown_pct: Probability = Field(default=0)
-    btc_direction_exposure_pct: Probability = Field(default=0)
-    total_correlated_exposure_pct: Probability = Field(default=0)
+    weekly_drawdown_pct: Decimal = Decimal("0")
+    monthly_drawdown_pct: Decimal = Decimal("0")
+    btc_direction_exposure_pct: Decimal = Decimal("0")
+    total_correlated_exposure_pct: Decimal = Decimal("0")
     safety_mode: bool = False
     open_positions: list[OpenPosition] = Field(default_factory=list)
     open_positions_count: int | None = Field(default=None, ge=0)
