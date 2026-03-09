@@ -1,0 +1,52 @@
+version: "1.0"
+
+categories:
+  MODEL:
+    - id: "false_signal"
+      meaning: "Indicators aligned but price moved opposite; model misread structure."
+    - id: "overconfidence"
+      meaning: "Confidence too high vs evidence; ignored uncertainty."
+    - id: "ignored_ev_rr"
+      meaning: "Did not compute/respect EV or risk-reward; decision became uncontrolled."
+    - id: "timeframe_mismatch"
+      meaning: "Signal belonged to a different horizon than the market resolution window."
+    - id: "macro_wrong_direction"
+      meaning: "Higher timeframe direction was wrong; trade fought macro."
+    - id: "micro_entry_bad_timing"
+      meaning: "Correct idea, poor entry timing on micro timeframe."
+
+  MARKET:
+    - id: "news_shock"
+      meaning: "Unexpected news dominated price action (macro/regulation/hack/etc.)."
+    - id: "volatility_regime_shift"
+      meaning: "Volatility changed regime; previous calibration invalid."
+
+  DATA:
+    - id: "data_quality_issue"
+      meaning: "Missing/bad data; feature snapshot unreliable."
+    - id: "stale_data"
+      meaning: "Reference or market data too old at decision time."
+    - id: "invalid_window"
+      meaning: "Temporary invalid window (API down / integrity gate failed)."
+
+  EXECUTION:
+    - id: "execution_error"
+      meaning: "Human/automation mistake (wrong side/size/timing)."
+    - id: "forced_entry_unclear_data"
+      meaning: "Entered on feeling while data was unclear/contradictory."
+    - id: "fear_after_loss"
+      meaning: "Skipped a good setup due to fear after recent losses."
+    - id: "copied_big_trader_style_wrongly"
+      meaning: "Copied active traders while not actively managing (buy-and-hold mismatch)."
+    - id: "did_not_use_sell_merge"
+      meaning: "Held position despite clear opportunities to SELL/MERGE/CONVERT for damage control."
+
+  POSITIVE:
+    - id: "disciplined_pass"
+      meaning: "PASS avoided a bad trade; discipline preserved bankroll."
+    - id: "good_risk_management"
+      meaning: "Sizing/exposure management was correct and consistent with rules."
+    - id: "good_active_management_sell_merge"
+      meaning: "Used SELL/MERGE/CONVERT correctly to manage downside."
+    - id: "model_edge_validated"
+      meaning: "Edge call was correct; model_prob beat market_prob in outcome."
