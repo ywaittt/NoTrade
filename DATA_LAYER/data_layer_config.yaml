@@ -3,11 +3,6 @@
 # New executable code MUST read from `DATA_LAYER/NOTRADE_CONSTANTS.yaml` only.
 # Keep this file temporarily only for backward compatibility with older scripts.
 
-# NoTrade Data Layer — legacy convenience config
-#
-# Prefer using `NOTRADE_CONSTANTS.yaml` (section: data_layer)
-# This file exists so older scripts can still read flat keys.
-
 EDGE_NET_THRESHOLD: 0.03
 
 POLY_MAX_STALENESS_S: 10
